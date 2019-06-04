@@ -4,18 +4,17 @@ public class MyFirstProgram {
   public static void main(String[] args) {
     System.out.println("Hello world!\n");
 
-    double r = 2;
-    System.out.println("Площадь круга с раудисом " + r + " равна " + area(r));
+    Circle c = new Circle(3.1416);
+    System.out.println("Площадь круга с раудисом " + c.r + " равна " + area(c));
 
-    double a = 2;
-    double b = 3;
-    System.out.println("Площадь прямоугольника со сторонами " + a + " и " + b + " равна " + area(a, b));
+    Rectangle r = new Rectangle(3, 4);
+    System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " равна " + area(r));
   }
 
-  public static double area(double r) {
-    return 3.1416 * r * r / 2;
+  public static double area(Circle c) {
+    return 3.1416 * c.r * c.r / 2;
   }
-  public static double area(double a, double b) {
-    return a * b;
+  public static double area(Rectangle r) {
+    return r.a * r.b;
   }
 }
