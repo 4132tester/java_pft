@@ -1,6 +1,6 @@
 package first.test;
 
-public class MyFirstProgram {
+  public class MyFirstProgram {
   public static void main(String[] args) {
     System.out.println("Hello world!\n");
 
@@ -12,7 +12,7 @@ public class MyFirstProgram {
 
     Point a = new Point(0,0);
     Point b = new Point(3,4);
-    System.out.println("Расстояние между двумя точками А и В равно: " + distance(a,b));
+    System.out.println("Расстояние между двумя точками А и В равно: " + Point.distance(a,b));
   }
 
   public static double area(Circle c) {
@@ -22,9 +22,4 @@ public class MyFirstProgram {
     return r.a * r.b;
   }
 
-  public static double distance(Point a, Point b){
-    double cathetus1 = a.x - b.x;
-    double cathetus2 = a.y - b.y;
-    return Math.sqrt(cathetus1 * cathetus1 + cathetus2 * cathetus2);
-  }
 }
