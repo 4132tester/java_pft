@@ -61,4 +61,12 @@ public class TestBase {
   public void tearDown() {
    driver.quit();
   }
+
+  public void deleteSelectedGroups() {
+    driver.findElement(By.name("delete")).click();
+  }
+
+  public void selectGroup() {
+    driver.findElement(By.cssSelector("span.group > [type = 'checkbox']")).click();
+  }
 }
