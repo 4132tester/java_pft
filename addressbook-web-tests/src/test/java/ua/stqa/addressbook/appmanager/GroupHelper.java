@@ -31,4 +31,12 @@ public class GroupHelper extends HelperBase {
   public void selectGroup() {
     click(By.cssSelector("span.group > [type = 'checkbox']"));
   }
+
+  public void initGropModification() {
+    click(By.name("edit"));
+  }
+
+  public void submitGroupModification() {
+    click(By.name("update"));
+  }
 }
