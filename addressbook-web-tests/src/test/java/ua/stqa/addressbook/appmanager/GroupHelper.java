@@ -6,6 +6,12 @@ import ua.stqa.addressbook.GroupData;
 
 public class GroupHelper {
 
+  private WebDriver driver;
+
+  public GroupHelper(WebDriver driver) {
+    this.driver = driver;
+  }
+
   public void submitGroupCreation() {
     driver.findElement(By.name("submit")).click();
   }

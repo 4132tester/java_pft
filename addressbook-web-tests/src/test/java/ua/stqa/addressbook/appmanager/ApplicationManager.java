@@ -10,32 +10,33 @@ public class ApplicationManager {
 
   WebDriver driver;
 
-  private final GroupHelper groupHelper = new GroupHelper();
+  private GroupHelper groupHelper;
 
   public void init() {
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     driver.manage().window().maximize();
+    driver.get("http://localhost/addressbook/");
+    groupHelper = new GroupHelper(driver);
     login("admin", "secret");
   }
 
   public void login(String username, String password) {
-    groupHelper.driver.get("http://localhost/addressbook/");
-    groupHelper.driver.findElement(By.name("user")).click();
-    groupHelper.driver.findElement(By.name("user")).clear();
-    groupHelper.driver.findElement(By.name("user")).sendKeys(username);
-    groupHelper.driver.findElement(By.name("pass")).click();
-    groupHelper.driver.findElement(By.name("pass")).clear();
-    groupHelper.driver.findElement(By.name("pass")).sendKeys(password);
-    groupHelper.driver.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+    driver.findElement(By.name("user")).click();
+    driver.findElement(By.name("user")).clear();
+    driver.findElement(By.name("user")).sendKeys(username);
+    driver.findElement(By.name("pass")).click();
+    driver.findElement(By.name("pass")).clear();
+    driver.findElement(By.name("pass")).sendKeys(password);
+    driver.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
   }
 
   public void gotoGroupsPage() {
-    groupHelper.driver.findElement(By.linkText("GROUPS")).click();
+    driver.findElement(By.linkText("GROUPS")).click();
   }
 
   public void stop() {
-    groupHelper.driver.quit();
+    driver.quit();
   }
 
   public GroupHelper getGroupHelper() {
