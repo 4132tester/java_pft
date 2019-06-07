@@ -12,6 +12,7 @@ public class ApplicationManager {
 
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
+  private SessionHelper sessionHelper;
 
   public void init() {
     driver = new ChromeDriver();
@@ -20,17 +21,8 @@ public class ApplicationManager {
     driver.get("http://localhost/addressbook/");
     groupHelper = new GroupHelper(driver);
     navigationHelper = new NavigationHelper(driver);
-    login("admin", "secret");
-  }
-
-  public void login(String username, String password) {
-    driver.findElement(By.name("user")).click();
-    driver.findElement(By.name("user")).clear();
-    driver.findElement(By.name("user")).sendKeys(username);
-    driver.findElement(By.name("pass")).click();
-    driver.findElement(By.name("pass")).clear();
-    driver.findElement(By.name("pass")).sendKeys(password);
-    driver.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+    sessionHelper = new SessionHelper(driver);
+    sessionHelper.login("admin", "secret");
   }
 
   public void stop() {
