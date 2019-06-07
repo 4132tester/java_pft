@@ -1,6 +1,7 @@
-package ua.stqa.addressbook;
+package ua.stqa.addressbook.tests;
 
 import org.testng.annotations.Test;
+import ua.stqa.addressbook.GroupData;
 
 public class GroupCreationTest extends TestBase {
 

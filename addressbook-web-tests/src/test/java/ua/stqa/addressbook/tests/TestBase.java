@@ -1,7 +1,8 @@
-package ua.stqa.addressbook;
+package ua.stqa.addressbook.tests;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import ua.stqa.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 

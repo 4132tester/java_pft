@@ -1,8 +1,9 @@
-package ua.stqa.addressbook;
+package ua.stqa.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import ua.stqa.addressbook.GroupData;
 
 import java.util.concurrent.TimeUnit;
 
