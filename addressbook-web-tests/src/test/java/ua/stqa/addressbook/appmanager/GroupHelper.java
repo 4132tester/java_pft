@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import ua.stqa.addressbook.GroupData;
 
 public class GroupHelper {
-  WebDriver driver;
 
   public void submitGroupCreation() {
     driver.findElement(By.name("submit")).click();

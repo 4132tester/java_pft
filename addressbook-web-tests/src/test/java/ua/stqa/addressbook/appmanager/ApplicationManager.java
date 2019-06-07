@@ -1,18 +1,21 @@
 package ua.stqa.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
 
+  WebDriver driver;
+
   private final GroupHelper groupHelper = new GroupHelper();
 
   public void init() {
-    groupHelper.driver = new ChromeDriver();
-    groupHelper.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    groupHelper.driver.manage().window().maximize();
+    driver = new ChromeDriver();
+    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    driver.manage().window().maximize();
     login("admin", "secret");
   }
 
