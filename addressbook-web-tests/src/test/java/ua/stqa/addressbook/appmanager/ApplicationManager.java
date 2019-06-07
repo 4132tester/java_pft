@@ -10,6 +10,7 @@ public class ApplicationManager {
 
   WebDriver driver;
 
+  private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
 
   public void init() {
@@ -18,6 +19,7 @@ public class ApplicationManager {
     driver.manage().window().maximize();
     driver.get("http://localhost/addressbook/");
     groupHelper = new GroupHelper(driver);
+    navigationHelper = new NavigationHelper(driver);
     login("admin", "secret");
   }
 
@@ -31,15 +33,15 @@ public class ApplicationManager {
     driver.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
   }
 
-  public void gotoGroupsPage() {
-    driver.findElement(By.linkText("GROUPS")).click();
-  }
-
   public void stop() {
     driver.quit();
   }
 
   public GroupHelper getGroupHelper() {
     return groupHelper;
+  }
+
+  public NavigationHelper getNavigationHelper() {
+    return navigationHelper;
   }
 }
