@@ -29,4 +29,13 @@ public class ContactHelper extends HelperBase {
   public void submitContactModification() {
     click(By.name("update"));
   }
+
+  public void selectContact() {
+    click(By.xpath("//*[@id=\"9\"]"));
+  }
+
+  public void deleteSelectedContact() {
+    click(By.cssSelector("input[type='button'][value='DELETE']"));
+    driver.switchTo().alert().accept();
+  }
 }
