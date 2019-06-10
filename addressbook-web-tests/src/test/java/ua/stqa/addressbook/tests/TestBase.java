@@ -6,7 +6,7 @@ import ua.stqa.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
-  protected final ApplicationManager app = new ApplicationManager();
+  public final ApplicationManager app = new ApplicationManager();
 
   @BeforeMethod
   public void setUp() throws Exception {

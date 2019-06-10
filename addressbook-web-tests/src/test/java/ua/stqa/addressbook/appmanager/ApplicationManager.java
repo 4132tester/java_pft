@@ -11,6 +11,7 @@ public class ApplicationManager {
 
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
+  private ContactHelper contactHelper;
   private SessionHelper sessionHelper;
 
   public void init() {
@@ -19,6 +20,7 @@ public class ApplicationManager {
     driver.manage().window().maximize();
     driver.get("http://localhost/addressbook/");
     groupHelper = new GroupHelper(driver);
+    contactHelper = new ContactHelper(driver);
     navigationHelper = new NavigationHelper(driver);
     sessionHelper = new SessionHelper(driver);
     sessionHelper.login("admin", "secret");
@@ -31,6 +33,8 @@ public class ApplicationManager {
   public GroupHelper getGroupHelper() {
     return groupHelper;
   }
+
+  public ContactHelper getContactHelper() {return contactHelper; }
 
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;
