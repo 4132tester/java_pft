@@ -10,7 +10,7 @@ public class GroupModificationTest extends TestBase {
   public void testGroupModification() {
     app.getNavigationHelper().gotoGroupsPage();
     int before = app.getGroupHelper().getGroupCount();
-    app.getGroupHelper().selectGroup();
+    app.getGroupHelper().selectGroup(2);
     app.getGroupHelper().initGropModification();
     app.getGroupHelper().fillGroupForm(new GroupData("modified-name", "modified-header", "modified-footer"));
     app.getGroupHelper().submitGroupModification();

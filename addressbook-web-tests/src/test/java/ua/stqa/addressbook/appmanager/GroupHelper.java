@@ -28,8 +28,8 @@ public class GroupHelper extends HelperBase {
     click(By.name("delete"));
   }
 
-  public void selectGroup() {
-    click(By.cssSelector("span.group > [type = 'checkbox']"));
+  public void selectGroup(int index) {
+    driver.findElements(By.cssSelector("span.group > [type = 'checkbox']")).get(index).click();
   }
 
   public void initGropModification() {
