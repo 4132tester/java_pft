@@ -23,7 +23,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void initContactModification() {
-    click(By.xpath("//*[@id=\"maintable\"]/tbody/tr[2]/td[8]/a"));
+    click(By.cssSelector("#maintable > tbody > tr:nth-child(2) > td:nth-child(8) > a"));
   }
 
   public void submitContactModification() {
@@ -31,11 +31,15 @@ public class ContactHelper extends HelperBase {
   }
 
   public void selectContact() {
-    click(By.xpath("//*[@id=\"9\"]"));
+    click(By.cssSelector("input[name=\"selected[]\"]"));
   }
 
   public void deleteSelectedContact() {
     click(By.cssSelector("input[type='button'][value='DELETE']"));
     driver.switchTo().alert().accept();
+  }
+
+  public int getContactCount() {
+    return driver.findElements(By.name("selected[]")).size();
   }
 }
