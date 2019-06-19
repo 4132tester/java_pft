@@ -42,4 +42,8 @@ public class ContactHelper extends HelperBase {
   public int getContactCount() {
     return driver.findElements(By.name("selected[]")).size();
   }
+
+  public boolean isThereAContact() {
+    return getContactCount() > 0;
+  }
 }
