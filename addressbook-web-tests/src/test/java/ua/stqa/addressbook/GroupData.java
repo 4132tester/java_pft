@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class GroupData {
 
-  private final String identifier;
+  private String identifier;
   private final String name;
   private final String header;
   private final String footer;
@@ -37,6 +37,10 @@ public class GroupData {
 
   public String getFooter() {
     return footer;
+  }
+
+  public void setIdentifier(String identifier) {
+    this.identifier = identifier;
   }
 
   @Override
