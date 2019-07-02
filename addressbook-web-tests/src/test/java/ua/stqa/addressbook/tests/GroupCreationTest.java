@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ua.stqa.addressbook.GroupData;
 
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
 
 public class GroupCreationTest extends TestBase {
@@ -31,7 +31,13 @@ public class GroupCreationTest extends TestBase {
     }
     group.setIdentifier(Integer.toString(maxIdentifier));
     before.add(group);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+
+    Comparator<? super GroupData> byId = (g1, g2) ->
+            Integer.compare(Integer.parseInt(g1.getIdentifier()), Integer.parseInt(g2.getIdentifier()));
+    before.sort(byId);
+    after.sort(byId);
+
+    Assert.assertEquals(before, after);
   }
 
 }
