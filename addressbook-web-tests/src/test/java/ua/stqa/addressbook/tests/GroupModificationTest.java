@@ -1,6 +1,7 @@
 package ua.stqa.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ua.stqa.addressbook.GroupData;
 
@@ -9,8 +10,8 @@ import java.util.List;
 
 public class GroupModificationTest extends TestBase {
 
-  @Test
-  public void testGroupModification() {
+  @BeforeMethod
+  public void ensurePreconditions() {
     app.getNavigationHelper().gotoGroupsPage();
     if (! app.getGroupHelper().isThereAGroup()) {
       app.getGroupHelper().initGroupCreation();
@@ -18,14 +19,17 @@ public class GroupModificationTest extends TestBase {
       app.getGroupHelper().submitGroupCreation();
       app.getNavigationHelper().gotoGroupsPage();
     }
+  }
+
+  @Test
+  public void testGroupModification() {
+
     List<GroupData> before = app.getGroupHelper().getGroupList();
     int groupIndex = 1;
-    app.getGroupHelper().selectGroup(groupIndex);
-    app.getGroupHelper().initGropModification();
     GroupData modifiedGroup =  new GroupData(before.get(groupIndex).getIdentifier(), "modified-3", "modified-header", "modified-footer");
-    app.getGroupHelper().fillGroupForm(modifiedGroup);
-    app.getGroupHelper().submitGroupModification();
-    app.getNavigationHelper().gotoGroupsPage();
+
+    app.getGroupHelper().modifyGroup(groupIndex, modifiedGroup);
+
     List<GroupData> after = app.getGroupHelper().getGroupList();
     Assert.assertEquals(after.size(), before.size());
 

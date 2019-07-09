@@ -66,4 +66,21 @@ public class GroupHelper extends HelperBase {
     }
     return groups;
   }
+
+  public void modifyGroup(int groupIndex, GroupData modifiedGroup) {
+    selectGroup(groupIndex);
+    initGropModification();
+    fillGroupForm(modifiedGroup);
+    submitGroupModification();
+    gotoGroupsPage();
+  }
+
+  public void gotoGroupsPage() {
+    if (isElementPresent(By.tagName("h1"))
+            && driver.findElement(By.tagName("h1")).getText().equals("Groups")
+            && isElementPresent(By.name("new"))) {
+      return;
+    }
+    click(By.linkText("GROUPS"));
+  }
 }
