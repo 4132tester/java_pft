@@ -19,10 +19,10 @@ public class GroupModificationTest extends TestBase {
       app.getNavigationHelper().gotoGroupsPage();
     }
     List<GroupData> before = app.getGroupHelper().getGroupList();
-    int groupIndex = before.size() - 1;
+    int groupIndex = 1;
     app.getGroupHelper().selectGroup(groupIndex);
     app.getGroupHelper().initGropModification();
-    GroupData modifiedGroup =  new GroupData(before.get(before.size() - 1).getIdentifier(), "modified-3", "modified-header", "modified-footer");
+    GroupData modifiedGroup =  new GroupData(before.get(groupIndex).getIdentifier(), "modified-3", "modified-header", "modified-footer");
     app.getGroupHelper().fillGroupForm(modifiedGroup);
     app.getGroupHelper().submitGroupModification();
     app.getNavigationHelper().gotoGroupsPage();

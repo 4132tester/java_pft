@@ -33,7 +33,7 @@ public class GroupHelper extends HelperBase {
   }
 
   public void selectGroup(int index) {
-    driver.findElements(By.cssSelector(".center > [type = 'checkbox']")).get(index).click();
+    driver.findElements(By.cssSelector(".group > [type = 'checkbox']")).get(index).click();
   }
 
   public void initGropModification() {
@@ -58,7 +58,7 @@ public class GroupHelper extends HelperBase {
       List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
       for (WebElement element: elements) {
         String name = element.getText();
-        System.out.println(name);
+        //System.out.println(name);
         String identifier = element.findElement(By.tagName("input")).getAttribute("value");
         GroupData group = new GroupData(identifier, name, null, null);
         groups.add(group);
