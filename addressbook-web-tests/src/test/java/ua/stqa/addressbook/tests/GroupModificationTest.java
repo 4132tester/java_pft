@@ -12,25 +12,25 @@ public class GroupModificationTest extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.getNavigationHelper().gotoGroupsPage();
-    if (! app.getGroupHelper().isThereAGroup()) {
-      app.getGroupHelper().initGroupCreation();
-      app.getGroupHelper().fillGroupForm(new GroupData("test_1 name", "test_1 header", "test_1 footer"));
-      app.getGroupHelper().submitGroupCreation();
-      app.getNavigationHelper().gotoGroupsPage();
+    app.goTo().groupsPage();
+    if (app.groups().list().size() == 0) {
+      app.groups().initGroupCreation();
+      app.groups().fillGroupForm(new GroupData("test_1 name", "test_1 header", "test_1 footer"));
+      app.groups().submitGroupCreation();
+      app.goTo().groupsPage();
     }
   }
 
   @Test
   public void testGroupModification() {
 
-    List<GroupData> before = app.getGroupHelper().getGroupList();
-    int groupIndex = 1;
-    GroupData modifiedGroup =  new GroupData(before.get(groupIndex).getIdentifier(), "modified-3", "modified-header", "modified-footer");
+    List<GroupData> before = app.groups().list();
+    int groupIndex = before.size() - 1;
+    GroupData modifiedGroup =  new GroupData(before.get(groupIndex).getIdentifier(), "modified-4", "modified-header", "modified-footer");
 
-    app.getGroupHelper().modifyGroup(groupIndex, modifiedGroup);
+    app.groups().modifyGroup(groupIndex, modifiedGroup);
 
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    List<GroupData> after = app.groups().list();
     Assert.assertEquals(after.size(), before.size());
 
     before.remove(groupIndex);

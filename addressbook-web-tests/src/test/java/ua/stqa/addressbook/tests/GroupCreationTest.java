@@ -11,14 +11,14 @@ public class GroupCreationTest extends TestBase {
 
   @Test
   public void testGroupCreation() {
-    app.getNavigationHelper().gotoGroupsPage();
-    List<GroupData> before = app.getGroupHelper().getGroupList();
-    app.getGroupHelper().initGroupCreation();
+    app.goTo().groupsPage();
+    List<GroupData> before = app.groups().list();
+    app.groups().initGroupCreation();
     GroupData group = new GroupData("test_5", "test_5", "test_5");
-    app.getGroupHelper().fillGroupForm(group);
-    app.getGroupHelper().submitGroupCreation();
-    app.getNavigationHelper().gotoGroupsPage();
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    app.groups().fillGroupForm(group);
+    app.groups().submitGroupCreation();
+    app.goTo().groupsPage();
+    List<GroupData> after = app.groups().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
     //сравнение коллекций групп

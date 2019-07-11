@@ -52,7 +52,7 @@ public class GroupHelper extends HelperBase {
     return getGroupCount() > 0;
   }
 
-  public List<GroupData> getGroupList() {
+  public List<GroupData> list() {
     List<GroupData> groups = new ArrayList<GroupData>();
     if (isThereAGroup()) {
       List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));

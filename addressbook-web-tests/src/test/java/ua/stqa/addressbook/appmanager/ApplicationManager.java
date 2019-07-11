@@ -44,13 +44,13 @@ public class ApplicationManager {
     driver.quit();
   }
 
-  public GroupHelper getGroupHelper() {
+  public GroupHelper groups() {
     return groupHelper;
   }
 
-  public ContactHelper getContactHelper() {return contactHelper; }
+  public ContactHelper contacts() {return contactHelper; }
 
-  public NavigationHelper getNavigationHelper() {
+  public NavigationHelper goTo() {
     return navigationHelper;
   }
 }

@@ -22,6 +22,10 @@ public class ContactHelper extends HelperBase {
     type(By.name("address"), contactData.getAddress());
   }
 
+  public void initContactCreation() {
+    click(By.linkText("ADD_NEW"));
+  }
+
   public void submitContactCreation() {
     click(By.name("submit"));
   }
@@ -35,8 +39,8 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  public void selectContact() {
-    click(By.cssSelector("input[name=\"selected[]\"]"));
+  public void selectContact(int index) {
+    driver.findElements(By.cssSelector("input[name=\"selected[]\"]")).get(index).click();
   }
 
   public void deleteSelectedContact() {
@@ -52,7 +56,7 @@ public class ContactHelper extends HelperBase {
     return getContactCount() > 0;
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     if (isThereAContact()) {
       String xpathOuter = "//*[@id=\"maintable\"]/tbody/tr";
