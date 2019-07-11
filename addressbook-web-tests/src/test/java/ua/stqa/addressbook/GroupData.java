@@ -4,24 +4,10 @@ import java.util.Objects;
 
 public class GroupData {
 
-  private String identifier;
-  private final String name;
-  private final String header;
-  private final String footer;
-
-  public GroupData(String identifier, String name, String header, String footer) {
-    this.identifier = identifier;
-    this.name = name;
-    this.header = header;
-    this.footer = footer;
-  }
-
-  public GroupData(String name, String header, String footer) {
-    this.identifier = String.valueOf(Integer.MAX_VALUE);
-    this.name = name;
-    this.header = header;
-    this.footer = footer;
-  }
+  private String identifier = String.valueOf(Integer.MAX_VALUE);
+  private String name;
+  private String header;
+  private String footer;
 
   public String getIdentifier() {
     return identifier;
@@ -39,8 +25,24 @@ public class GroupData {
     return footer;
   }
 
-  public void setIdentifier(String identifier) {
+  public GroupData withIdentifier(String identifier) {
     this.identifier = identifier;
+    return this;
+  }
+
+  public GroupData withName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public GroupData withHeader(String header) {
+    this.header = header;
+    return this;
+  }
+
+  public GroupData withFooter(String footer) {
+    this.footer = footer;
+    return this;
   }
 
   @Override

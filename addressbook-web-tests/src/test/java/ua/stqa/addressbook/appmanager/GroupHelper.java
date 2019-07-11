@@ -60,7 +60,7 @@ public class GroupHelper extends HelperBase {
         String name = element.getText();
         //System.out.println(name);
         String identifier = element.findElement(By.tagName("input")).getAttribute("value");
-        GroupData group = new GroupData(identifier, name, null, null);
+        GroupData group = new GroupData().withIdentifier(identifier).withName(name);
         groups.add(group);
       }
     }

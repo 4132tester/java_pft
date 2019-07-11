@@ -14,7 +14,7 @@ public class GroupCreationTest extends TestBase {
     app.goTo().groupsPage();
     List<GroupData> before = app.groups().list();
     app.groups().initGroupCreation();
-    GroupData group = new GroupData("test_5", "test_5", "test_5");
+    GroupData group = new GroupData().withName("test_5");
     app.groups().fillGroupForm(group);
     app.groups().submitGroupCreation();
     app.goTo().groupsPage();
@@ -29,7 +29,7 @@ public class GroupCreationTest extends TestBase {
         maxIdentifier = i;
       }
     }
-    group.setIdentifier(Integer.toString(maxIdentifier));
+    group.withIdentifier(Integer.toString(maxIdentifier));
     before.add(group);
 
     Comparator<? super GroupData> byId = (g1, g2) ->

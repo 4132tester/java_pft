@@ -15,7 +15,8 @@ public class GroupModificationTest extends TestBase {
     app.goTo().groupsPage();
     if (app.groups().list().size() == 0) {
       app.groups().initGroupCreation();
-      app.groups().fillGroupForm(new GroupData("test_1 name", "test_1 header", "test_1 footer"));
+      app.groups().fillGroupForm(new GroupData()
+              .withName("test_1 name").withHeader("test_1 header").withFooter("test_1 footer"));
       app.groups().submitGroupCreation();
       app.goTo().groupsPage();
     }
@@ -26,7 +27,9 @@ public class GroupModificationTest extends TestBase {
 
     List<GroupData> before = app.groups().list();
     int groupIndex = before.size() - 1;
-    GroupData modifiedGroup =  new GroupData(before.get(groupIndex).getIdentifier(), "modified-4", "modified-header", "modified-footer");
+    GroupData modifiedGroup =  new GroupData()
+            .withIdentifier(before.get(groupIndex).getIdentifier()).withName("modified-4")
+            .withHeader("modified-header").withFooter("modified-footer");
 
     app.groups().modifyGroup(groupIndex, modifiedGroup);
 
