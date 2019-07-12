@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public class GroupData {
 
-  private String identifier = String.valueOf(Integer.MAX_VALUE);
+  private int identifier = Integer.MAX_VALUE;
   private String name;
   private String header;
   private String footer;
 
-  public String getIdentifier() {
+  public int getIdentifier() {
     return identifier;
   }
 
@@ -25,7 +25,21 @@ public class GroupData {
     return footer;
   }
 
-  public GroupData withIdentifier(String identifier) {
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GroupData groupData = (GroupData) o;
+    return identifier == groupData.identifier &&
+            Objects.equals(name, groupData.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(identifier, name);
+  }
+
+  public GroupData withIdentifier(int identifier) {
     this.identifier = identifier;
     return this;
   }
@@ -46,23 +60,11 @@ public class GroupData {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    GroupData groupData = (GroupData) o;
-    return Objects.equals(name, groupData.name);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(name);
-  }
-
-  @Override
   public String toString() {
     return "GroupData{" +
-            "identifier='" + identifier + '\'' +
+            "identifier=" + identifier +
             ", name='" + name + '\'' +
             '}';
   }
+
 }

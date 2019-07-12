@@ -4,39 +4,24 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ua.stqa.addressbook.GroupData;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 public class GroupCreationTest extends TestBase {
 
   @Test
   public void testGroupCreation() {
     app.goTo().groupsPage();
-    List<GroupData> before = app.groups().list();
+    Set<GroupData> before = app.groups().setGroups();
     app.groups().initGroupCreation();
-    GroupData group = new GroupData().withName("test_5");
+    GroupData group = new GroupData().withName("test_6");
     app.groups().fillGroupForm(group);
     app.groups().submitGroupCreation();
     app.goTo().groupsPage();
-    List<GroupData> after = app.groups().list();
+    Set<GroupData> after = app.groups().setGroups();
     Assert.assertEquals(after.size(), before.size() + 1);
 
-    //сравнение коллекций групп
-    int maxIdentifier = 0;
-    for (GroupData element : after) {
-      int i = Integer.parseInt(element.getIdentifier());
-      if (i > maxIdentifier) {
-        maxIdentifier = i;
-      }
-    }
-    group.withIdentifier(Integer.toString(maxIdentifier));
+    group.withIdentifier(after.stream().mapToInt((g) -> g.getIdentifier()).max().getAsInt());
     before.add(group);
-
-    Comparator<? super GroupData> byId = (g1, g2) ->
-            Integer.compare(Integer.parseInt(g1.getIdentifier()), Integer.parseInt(g2.getIdentifier()));
-    before.sort(byId);
-    after.sort(byId);
-
     Assert.assertEquals(before, after);
   }
 

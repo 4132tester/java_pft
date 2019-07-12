@@ -5,8 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ua.stqa.addressbook.GroupData;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -32,8 +33,9 @@ public class GroupHelper extends HelperBase {
     click(By.name("delete"));
   }
 
-  public void selectGroup(int index) {
-    driver.findElements(By.cssSelector(".group > [type = 'checkbox']")).get(index).click();
+
+  public void selectGroupById(int id) {
+    driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void initGropModification() {
@@ -52,14 +54,14 @@ public class GroupHelper extends HelperBase {
     return getGroupCount() > 0;
   }
 
-  public List<GroupData> list() {
-    List<GroupData> groups = new ArrayList<GroupData>();
+  public Set<GroupData> setGroups() {
+    Set<GroupData> groups = new HashSet<GroupData>();
     if (isThereAGroup()) {
       List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
       for (WebElement element: elements) {
         String name = element.getText();
         //System.out.println(name);
-        String identifier = element.findElement(By.tagName("input")).getAttribute("value");
+        int identifier = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
         GroupData group = new GroupData().withIdentifier(identifier).withName(name);
         groups.add(group);
       }
@@ -67,11 +69,17 @@ public class GroupHelper extends HelperBase {
     return groups;
   }
 
-  public void modifyGroup(int groupIndex, GroupData modifiedGroup) {
-    selectGroup(groupIndex);
+  public void modifyGroup(GroupData group) {
+    selectGroupById(group.getIdentifier());
     initGropModification();
-    fillGroupForm(modifiedGroup);
+    fillGroupForm(group);
     submitGroupModification();
+    gotoGroupsPage();
+  }
+
+  public void delete(GroupData group) {
+    selectGroupById(group.getIdentifier());
+    deleteSelectedGroups();
     gotoGroupsPage();
   }
 
@@ -83,4 +91,5 @@ public class GroupHelper extends HelperBase {
     }
     click(By.linkText("GROUPS"));
   }
+
 }
