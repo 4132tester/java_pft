@@ -6,14 +6,20 @@ import org.openqa.selenium.WebElement;
 import ua.stqa.addressbook.GroupData;
 import ua.stqa.addressbook.model.Groups;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
   public GroupHelper(WebDriver driver) {
     super(driver);
+  }
+
+  public void create (GroupData group) {
+    initGroupCreation();
+    fillGroupForm(group);
+    submitGroupCreation();
+    groupCache = null;
+    gotoGroupsPage();
   }
 
   public void submitGroupCreation() {
@@ -55,19 +61,25 @@ public class GroupHelper extends HelperBase {
     return getGroupCount() > 0;
   }
 
+  private Groups groupCache = null;
+
   public Groups setGroups() {
-    Groups groups = new Groups();
-    if (isThereAGroup()) {
-      List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
-      for (WebElement element: elements) {
-        String name = element.getText();
-        //System.out.println(name);
-        int identifier = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-        GroupData group = new GroupData().withIdentifier(identifier).withName(name);
-        groups.add(group);
+    if (groupCache != null) {
+      return new Groups(groupCache);
+    } else {
+      groupCache = new Groups();
+      if (isThereAGroup()) {
+        List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
+        for (WebElement element: elements) {
+          String name = element.getText();
+          //System.out.println(name);
+          int identifier = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+          GroupData group = new GroupData().withIdentifier(identifier).withName(name);
+          groupCache.add(group);
+        }
       }
+      return new Groups(groupCache);
     }
-    return groups;
   }
 
   public void modifyGroup(GroupData group) {
@@ -75,12 +87,14 @@ public class GroupHelper extends HelperBase {
     initGropModification();
     fillGroupForm(group);
     submitGroupModification();
+    groupCache = null;
     gotoGroupsPage();
   }
 
   public void delete(GroupData group) {
     selectGroupById(group.getIdentifier());
     deleteSelectedGroups();
+    groupCache = null;
     gotoGroupsPage();
   }
 
