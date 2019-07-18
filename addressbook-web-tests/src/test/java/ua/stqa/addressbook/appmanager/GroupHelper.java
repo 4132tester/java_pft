@@ -53,12 +53,12 @@ public class GroupHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  public int getGroupCount() {
+  public int count() {
     return driver.findElements(By.name("selected[]")).size();
   }
 
   public boolean isThereAGroup() {
-    return getGroupCount() > 0;
+    return count() > 0;
   }
 
   private Groups groupCache = null;
