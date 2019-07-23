@@ -7,26 +7,78 @@ public class ContactData {
   private int contactId;
   private String firstName;
   private String lastName;
+  private String homePhone;
   private String mobilePhone;
+  private String workPhone;
   private String email;
   private String address;
 
-  public ContactData(String firstName, String lastName, String mobilePhone, String email, String address) {
-    this.contactId = Integer.MAX_VALUE;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.mobilePhone = mobilePhone;
-    this.email = email;
-    this.address = address;
+  public String getFirstName() {
+    return firstName;
   }
 
-  public ContactData(int contactId, String firstName, String lastName, String mobilePhone, String email, String address) {
+  public String getLastName() {
+    return lastName;
+  }
+
+  public String getHomePhone() {
+    return homePhone;
+  }
+
+  public String getMobilePhone() {
+    return mobilePhone;
+  }
+
+  public String getWorkPhone() {
+    return workPhone;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public ContactData withContactId(int contactId) {
     this.contactId = contactId;
+    return this;
+  }
+
+  public ContactData withFirstName(String firstName) {
     this.firstName = firstName;
+    return this;
+  }
+
+  public ContactData withLastName(String lastName) {
     this.lastName = lastName;
+    return this;
+  }
+
+  public ContactData withHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+    return this;
+  }
+
+  public ContactData withMobilePhone(String mobilePhone) {
     this.mobilePhone = mobilePhone;
+    return this;
+  }
+
+  public ContactData withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
+    return this;
+  }
+
+  public ContactData withEmail(String email) {
     this.email = email;
+    return this;
+  }
+
+  public ContactData withAddress(String address) {
     this.address = address;
+    return this;
   }
 
   public int getContactId() {
@@ -46,26 +98,6 @@ public class ContactData {
   @Override
   public int hashCode() {
     return Objects.hash(firstName, lastName, mobilePhone);
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public String getMobilePhone() {
-    return mobilePhone;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public String getAddress() {
-    return address;
   }
 
   @Override

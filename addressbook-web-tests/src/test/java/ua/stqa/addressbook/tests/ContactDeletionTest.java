@@ -1,35 +1,37 @@
 package ua.stqa.addressbook.tests;
 
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ua.stqa.addressbook.ContactData;
+import ua.stqa.addressbook.model.Contacts;
 
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactDeletionTest extends TestBase {
 
-  @Test
-  public void testContactDeletion() {
+  @BeforeMethod
+  public void ensurePreconditions() {
     app.goTo().homePage();
-    if (app.contacts().list().size() == 0) {
+    if (! app.contacts().isThereAContact()) {
       app.contacts().initContactCreation();
-      app.contacts().fillContactForm(new ContactData("Ivan", "Ivanov",
-              "050134578", "ivan_ivanov@te.st", "Lviv, vul. Naukova 3, kv. 56"));
+      app.contacts().fillContactForm(new ContactData()
+              .withFirstName("Ivan").withLastName("Ivanov").withHomePhone("0501112233")
+              .withMobilePhone("0501112234").withWorkPhone("0501112235").withEmail("ivan_ivanov@te.st")
+              .withAddress("Lviv, vul. Naukova 3, kv. 56"));
       app.contacts().submitContactCreation();
       app.goTo().homePage();
     }
-    List<ContactData> before = app.contacts().list();
-    int contactIndex = before.size() - 1;
-    app.contacts().selectContact(contactIndex);
-    app.contacts().deleteSelectedContact();
-    app.goTo().homePage();
-    List<ContactData> after = app.contacts().list();
+  }
 
-    System.out.println("before: " + before);
-    System.out.println("after: " + after);
-    Assert.assertEquals(after.size(), before.size() - 1);
+  @Test
+  public void testContactDeletion() {
+    Contacts before = app.contacts().setContacts();
+    ContactData deletedContact = before.iterator().next();
+    app.contacts().delete(deletedContact);
 
-    before.remove(contactIndex);
-    Assert.assertEquals(before, after);
+    assertThat(app.contacts().count(), equalTo(before.size() + 1));
+    Contacts after = app.contacts().setContacts();
+    assertThat(after, equalTo(before.withAdded(deletedContact)));
   }
 }
