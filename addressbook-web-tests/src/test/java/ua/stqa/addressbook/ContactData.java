@@ -7,11 +7,12 @@ public class ContactData {
   private int contactId;
   private String firstName;
   private String lastName;
+  private String email;
+  private String address;
   private String homePhone;
   private String mobilePhone;
   private String workPhone;
-  private String email;
-  private String address;
+  private String allPhones;
 
   public String getFirstName() {
     return firstName;
@@ -39,6 +40,10 @@ public class ContactData {
 
   public String getAddress() {
     return address;
+  }
+
+  public String getAllPhones() {
+    return allPhones;
   }
 
   public ContactData withContactId(int contactId) {
@@ -78,6 +83,11 @@ public class ContactData {
 
   public ContactData withAddress(String address) {
     this.address = address;
+    return this;
+  }
+
+  public ContactData withAllPhones (String allPhones) {
+    this.allPhones = allPhones;
     return this;
   }
 

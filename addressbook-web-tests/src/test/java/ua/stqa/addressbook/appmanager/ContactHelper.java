@@ -75,10 +75,9 @@ public class ContactHelper extends HelperBase {
           String lastname = cells.get(1).getText();
           String email = cells.get(4).getText();
           String allPhones = cells.get(5).getText();
-          String[] phones = allPhones.split("\n");
           ContactData person = new ContactData()
                   .withContactId(id).withFirstName(firstname).withLastName(lastname).withEmail(email)
-                  .withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]);
+                  .withAllPhones(allPhones);
           contactCache.add(person);
         }
       }
