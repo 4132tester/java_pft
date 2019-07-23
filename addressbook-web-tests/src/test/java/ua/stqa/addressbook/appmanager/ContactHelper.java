@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import ua.stqa.addressbook.ContactData;
 import ua.stqa.addressbook.model.Contacts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
