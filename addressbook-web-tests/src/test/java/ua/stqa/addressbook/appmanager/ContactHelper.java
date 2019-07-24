@@ -37,7 +37,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void selectContact(int index) {
-    driver.findElements(By.cssSelector("input[name=\"selected[]\"]")).get(index).click();
+    driver.findElement(By.cssSelector(String.format("input[id='%d']", index))).click();
   }
 
   public void deleteSelectedContact() {
