@@ -26,15 +26,6 @@ public class GroupData {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    GroupData groupData = (GroupData) o;
-    return identifier == groupData.identifier &&
-            Objects.equals(name, groupData.name);
-  }
-
-  @Override
   public int hashCode() {
     return Objects.hash(identifier, name);
   }
@@ -67,4 +58,12 @@ public class GroupData {
             '}';
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GroupData groupData = (GroupData) o;
+    return identifier == groupData.identifier &&
+            Objects.equals(name, groupData.name);
+  }
 }

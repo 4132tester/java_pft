@@ -30,7 +30,7 @@ public class GroupModificationTest extends TestBase {
     GroupData modifiedGroup = before.iterator().next();
 
     GroupData group =  new GroupData()
-            .withIdentifier(modifiedGroup.getIdentifier()).withName("modified-5")
+            .withIdentifier(modifiedGroup.getIdentifier()).withName("modified-1")
             .withHeader("modified-header").withFooter("modified-footer");
 
     app.groups().modifyGroup(group);

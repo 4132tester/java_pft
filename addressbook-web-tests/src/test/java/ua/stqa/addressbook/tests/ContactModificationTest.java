@@ -18,7 +18,8 @@ public class ContactModificationTest extends TestBase {
       app.contacts().fillContactForm(new ContactData()
                       .withFirstName("Ivan").withLastName("Ivanov").withHomePhone("0501112233")
                       .withMobilePhone("0501112234").withWorkPhone("0501112235").withEmail("ivan_ivanov@te.st")
-                      .withAddress("Lviv, vul. Naukova 3, kv. 56"));
+                      .withEmail2("pyj1j5ghka@fakemailgenerator.net").withEmail3("5sqshcudrff@iffymedia.com")
+                      .withAddress1("Lviv, vul. Naukova 3, kv. 56"));
       app.contacts().submitContactCreation();
       app.goTo().homePage();
     }
@@ -30,7 +31,8 @@ public class ContactModificationTest extends TestBase {
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData().withContactId(modifiedContact.getContactId()).withFirstName("Akakiy")
             .withLastName("Maksyymenko").withEmail("Akakiy_Maksyymenko@te.st")
-            .withAddress("Kirovograd, Fortechniy Prov., bld. 21А, appt. 90");
+            .withEmail2("pyj1j5ghka@fakemailgenerator.net").withEmail3("5sqshcudrff@iffymedia.com")
+            .withAddress1("Kirovograd, Fortechniy Prov., bld. 21А, appt. 90");
 
     app.contacts().modifyContact(contact);
     Contacts after = app.contacts().setContacts();
