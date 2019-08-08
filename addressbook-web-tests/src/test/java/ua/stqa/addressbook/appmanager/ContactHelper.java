@@ -19,6 +19,7 @@ public class ContactHelper extends HelperBase {
   public void fillContactForm(ContactData contactData) {
     type(By.name("firstname"), contactData.getFirstName());
     type(By.name("lastname"), contactData.getLastName());
+    attach(By.name("photo"), contactData.getPhoto());
     type(By.name("home"), contactData.getHomePhone());
     type(By.name("mobile"), contactData.getMobilePhone());
     type(By.name("work"), contactData.getWorkPhone());
@@ -108,8 +109,19 @@ public class ContactHelper extends HelperBase {
             .withMobilePhone(mobile).withWorkPhone(work);
   }
 
+  public ContactData infoFromDetailsPage(ContactData contact) {
+    openDetailPageById(contact.getContactId());
+    String contactInfo = driver.findElement(By.cssSelector("div[id='content']")).getAttribute("value");
+    System.out.println(contactInfo);
+    return new ContactData();
+  }
+
   private void initContactModificationById(int contactId) {
     driver.findElement(By.cssSelector(String.format("a[href='edit.php?id=%d']", contactId))).click();
+  }
+
+  private void openDetailPageById(int contactId) {
+    driver.findElement(By.cssSelector(String.format("a[href='view.php?id=%d']", contactId))).click();
   }
 
   public void modifyContact(ContactData contact) {

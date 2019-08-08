@@ -1,5 +1,6 @@
 package ua.stqa.addressbook;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
@@ -7,6 +8,7 @@ public class ContactData {
   private int contactId;
   private String firstName;
   private String lastName;
+  private File photo;
   private String email;
   private String email2;
   private String email3;
@@ -17,6 +19,8 @@ public class ContactData {
   private String workPhone;
   private String allPhones;
   private String allEmails;
+  private String allContactData;
+
 
   public String getFirstName() {
     return firstName;
@@ -24,6 +28,11 @@ public class ContactData {
 
   public String getLastName() {
     return lastName;
+  }
+
+
+  public File getPhoto() {
+    return photo;
   }
 
   public String getHomePhone() {
@@ -66,6 +75,10 @@ public class ContactData {
       return allEmails;
     }
 
+  public String getAllContactData() {
+    return allContactData;
+  }
+
   public ContactData withContactId(int contactId) {
     this.contactId = contactId;
     return this;
@@ -78,6 +91,12 @@ public class ContactData {
 
   public ContactData withLastName(String lastName) {
     this.lastName = lastName;
+    return this;
+  }
+
+
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
     return this;
   }
 
@@ -128,6 +147,12 @@ public class ContactData {
 
   public ContactData withAllEmails (String allEmails) {
     this.allEmails = allEmails;
+    return this;
+  }
+
+
+  public ContactData withAllContactData(String allContactData) {
+    this.allContactData = allContactData;
     return this;
   }
 
