@@ -17,3 +17,4 @@ gradle-app.setting
 # Compiled class file
 *.class
 *.java
+addressbook-web-tests/src/test/resources/groups.csv
