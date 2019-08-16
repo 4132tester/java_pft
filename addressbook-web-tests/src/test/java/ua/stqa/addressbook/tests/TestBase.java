@@ -1,20 +1,20 @@
 package ua.stqa.addressbook.tests;
 
 import org.openqa.selenium.remote.BrowserType;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import ua.stqa.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
   public final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
 
-  @BeforeMethod
+  @BeforeTest
   public void setUp() throws Exception {
     app.init();
   }
 
-  @AfterMethod
+  @AfterTest
   public void tearDown() {
     app.stop();
   }
