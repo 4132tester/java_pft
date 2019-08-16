@@ -1,5 +1,7 @@
 package ua.stqa.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -46,7 +48,23 @@ public class GroupCreationTest extends TestBase {
     return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 
-  @Test(dataProvider = "validGroupsFromXml")
+  @DataProvider
+  public Iterator<Object[]> validGroupsFromJson() throws IOException {
+    BufferedReader br = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")));
+    String json = "";
+    String line = br.readLine();
+    while (line != null) {
+      json += line;
+      line = br.readLine();
+    }
+    Gson gson = new Gson();
+    List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType());
+    //TypeToken<List<GroupData>> - примерно то же что и List<GroupData>.class
+
+    return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+  }
+
+  @Test(dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) {
     app.goTo().groupsPage();
     Groups before = app.groups().setGroups();
