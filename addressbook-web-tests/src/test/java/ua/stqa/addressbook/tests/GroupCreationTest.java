@@ -1,13 +1,16 @@
 package ua.stqa.addressbook.tests;
 
+import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ua.stqa.addressbook.GroupData;
 import ua.stqa.addressbook.model.Groups;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,15 +18,35 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupCreationTest extends TestBase {
 
   @DataProvider
-  public Iterator<Object[]> validGroups() {
+  public Iterator<Object[]> validGroupsFromCsv() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    list.add(new Object[] {new GroupData().withName("test 1").withHeader("header 1").withFooter("footer 1")});
-    list.add(new Object[] {new GroupData().withName("test 2").withHeader("header 2").withFooter("footer 2")});
-    list.add(new Object[] {new GroupData().withName("test 3").withHeader("header 3").withFooter("footer 3")});
+    BufferedReader br = new BufferedReader(new FileReader(new File("src/test/resources/groups.csv")));
+    String line = br.readLine();
+    while (line != null) {
+      String[] word = line.split(";");
+      list.add(new Object[] {new GroupData().withName(word[0]).withName(word[1]).withFooter(word[2])});
+      line = br.readLine();
+    }
     return list.iterator();
   }
 
-  @Test(dataProvider = "validGroups")
+  @DataProvider
+  public Iterator<Object[]> validGroupsFromXml() throws IOException {
+    BufferedReader br = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));
+    String xml = "";
+    String line = br.readLine();
+    while (line != null) {
+      xml += line;
+      line = br.readLine();
+    }
+    XStream xStream = new XStream();
+    xStream.processAnnotations(GroupData.class);
+    List<GroupData> groups = (List<GroupData>) xStream.fromXML(xml);
+    // це пиздець!
+    return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+  }
+
+  @Test(dataProvider = "validGroupsFromXml")
   public void testGroupCreation(GroupData group) {
     app.goTo().groupsPage();
     Groups before = app.groups().setGroups();
