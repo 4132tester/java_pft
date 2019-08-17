@@ -1,0 +1,4 @@
+6370 [main] INFO  ua.stqa.addressbook.tests.TestBase - Start test testGroupCreation with parameters [GroupData{identifier=2147483647, name='test json 0'}]
+8639 [main] INFO  ua.stqa.addressbook.tests.TestBase - Stop test testGroupCreation
+8640 [main] INFO  ua.stqa.addressbook.tests.TestBase - Start test testGroupCreation with parameters [GroupData{identifier=2147483647, name='test json 1'}]
+10227 [main] INFO  ua.stqa.addressbook.tests.TestBase - Stop test testGroupCreation
