@@ -14,6 +14,12 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.8.5'
 	implementation 'ch.qos.logback:logback-classic:1.3.0-alpha4'
 	implementation 'mysql:mysql-connector-java:8.0.17'
+	implementation 'org.hibernate:hibernate-core:5.3.11.Final'
+	// JAX-B dependencies for JDK 9+
+	implementation "javax.xml.bind:jaxb-api:2.2.11"
+	implementation "com.sun.xml.bind:jaxb-core:2.2.11"
+	implementation "com.sun.xml.bind:jaxb-impl:2.2.11"
+	implementation "javax.activation:activation:1.1.1"
 }
 
 task testGroups(type: Test) {
