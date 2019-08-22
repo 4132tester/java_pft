@@ -1,33 +1,74 @@
 package ua.stqa.addressbook;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
 
+  @Id
+  @Column(name = "id")
   private int contactId;
-  @Expose
-  private String firstName;
-  @Expose
-  private String lastName;
-  private File photo;
-  @Expose
-  private String email;
-  private String email2;
-  private String email3;
-  @Expose
-  private String address1;
-  private String address2;
-  private String homePhone;
-  @Expose
-  private String mobilePhone;
-  private String workPhone;
-  private String allPhones;
-  private String allEmails;
-  private String allContactData;
 
+  @Expose
+  @Column(name = "firstname")
+  private String firstName;
+
+  @Expose
+  @Column(name = "lastname")
+  private String lastName;
+
+  @Transient
+  private File photo;
+
+  @Expose
+  @Column(name = "email")
+  @Type(type = "text")
+  private String email;
+
+  @Column(name = "email2")
+  @Type(type = "text")
+  private String email2;
+
+  @Column(name = "email3")
+  @Type(type = "text")
+  private String email3;
+
+  @Expose
+  @Type(type = "text")
+  @Column(name = "address")
+  private String address1;
+
+  @Column(name = "address2")
+  @Type(type = "text")
+  private String address2;
+
+  @Column(name = "home")
+  @Type(type = "text")
+  private String homePhone;
+
+  @Expose
+  @Column(name = "mobile")
+  @Type(type = "text")
+  private String mobilePhone;
+
+  @Column(name = "work")
+  @Type(type = "text")
+  private String workPhone;
+
+  @Transient
+  private String allPhones;
+
+  @Transient
+  private String allEmails;
+
+  @Transient
+  private String allContactData;
 
   public String getFirstName() {
     return firstName;
@@ -100,7 +141,6 @@ public class ContactData {
     this.lastName = lastName;
     return this;
   }
-
 
   public ContactData withPhoto(File photo) {
     this.photo = photo;
