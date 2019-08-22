@@ -10,10 +10,20 @@ import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
-  private Contacts contactCache = null;
-
   public ContactHelper(WebDriver driver) {
     super(driver);
+  }
+
+  public void create(ContactData contact) {
+    initContactCreation();
+    fillContactForm(contact);
+    submitContactCreation();
+    contactCache = null;
+    gotoHomepage();
+  }
+
+  public void submitContactCreation() {
+    click(By.name("submit"));
   }
 
   public void fillContactForm(ContactData contactData) {
@@ -34,21 +44,21 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("ADD_NEW"));
   }
 
-  public void submitContactCreation() {
-    click(By.name("submit"));
-  }
-
-  public void submitContactModification() {
-    click(By.name("update"));
+  public void deleteSelectedContact() {
+    click(By.cssSelector("input[type='button'][value='DELETE']"));
+    driver.switchTo().alert().accept();
   }
 
   public void selectContact(int index) {
     driver.findElement(By.cssSelector(String.format("input[id='%d']", index))).click();
   }
 
-  public void deleteSelectedContact() {
-    click(By.cssSelector("input[type='button'][value='DELETE']"));
-    driver.switchTo().alert().accept();
+  private void initContactModificationById(int contactId) {
+    driver.findElement(By.cssSelector(String.format("a[href='edit.php?id=%d']", contactId))).click();
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
   }
 
   public int count() {
@@ -59,13 +69,7 @@ public class ContactHelper extends HelperBase {
     return count() > 0;
   }
 
-  public void create(ContactData contact) {
-    initContactCreation();
-    fillContactForm(contact);
-    submitContactCreation();
-    contactCache = null;
-    gotoHomepage();
-  }
+  private Contacts contactCache = null;
 
   public Contacts setContacts() {
     if (contactCache != null) {
@@ -88,8 +92,29 @@ public class ContactHelper extends HelperBase {
           contactCache.add(person);
         }
       }
+      return new Contacts(contactCache);
     }
-    return new Contacts(contactCache);
+  }
+
+  public void modifyContact(ContactData contact) {
+    initContactModificationById(contact.getContactId());
+    fillContactForm(contact);
+    submitContactModification();
+    contactCache = null;
+    gotoHomepage();
+  }
+
+  public void delete(ContactData contact) {
+    selectContact(contact.getContactId());
+    deleteSelectedContact();
+    contactCache = null;
+    gotoHomepage();
+  }
+
+  private void gotoHomepage() {
+    if (isElementPresent(By.id("maintable")))
+      return;
+    click(By.linkText("HOME"));
   }
 
   public ContactData infoFromEditForm(ContactData contact) {
@@ -116,32 +141,8 @@ public class ContactHelper extends HelperBase {
     return new ContactData();
   }
 
-  private void initContactModificationById(int contactId) {
-    driver.findElement(By.cssSelector(String.format("a[href='edit.php?id=%d']", contactId))).click();
-  }
-
   private void openDetailPageById(int contactId) {
     driver.findElement(By.cssSelector(String.format("a[href='view.php?id=%d']", contactId))).click();
   }
 
-  public void modifyContact(ContactData contact) {
-    initContactModificationById(contact.getContactId());
-    fillContactForm(contact);
-    submitContactModification();
-    contactCache = null;
-    gotoHomepage();
-  }
-
-  public void delete(ContactData contact) {
-    selectContact(contact.getContactId());
-    deleteSelectedContact();
-    contactCache = null;
-    gotoHomepage();
-  }
-
-  private void gotoHomepage() {
-    if (isElementPresent(By.id("maintable")))
-      return;
-    click(By.linkText("HOME"));
-  }
 }
