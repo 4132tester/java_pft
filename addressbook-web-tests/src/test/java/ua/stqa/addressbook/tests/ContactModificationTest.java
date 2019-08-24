@@ -13,20 +13,18 @@ public class ContactModificationTest extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().homePage();
-    if (! app.contacts().isThereAContact()) {
-      app.contacts().initContactCreation();
-      app.contacts().fillContactForm(new ContactData()
-                      .withFirstName("Ivan").withLastName("Ivanov").withHomePhone("0501112233")
-                      .withMobilePhone("0501112234").withWorkPhone("0501112235").withEmail("ivan_ivanov@te.st")
-                      .withEmail2("pyj1j5ghka@fakemailgenerator.net").withEmail3("5sqshcudrff@iffymedia.com")
-                      .withAddress1("Lviv, vul. Naukova 3, kv. 56"));
-      app.contacts().submitContactCreation();
-      app.goTo().homePage();
+    if (app.contacts().setContacts().size() == 0) {
+      ContactData newContact = new ContactData().withFirstName("Ivan").withLastName("Ivanov").withHomePhone("0501112233")
+              .withMobilePhone("0501112234").withWorkPhone("0501112235").withEmail("1st_ivan_ivanov@te.st")
+              .withEmail2("2nd_ivan_ivanov@te.st").withEmail3("3rd_ivan_ivanov@te.st")
+              .withAddress1("Lviv, vul. Naukova 3, kv. 56");
+      app.contacts().create(newContact);
     }
   }
 
   @Test
   public void testContactModification() {
+    app.goTo().homePage();
     Contacts before = app.contacts().setContacts();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData().withContactId(modifiedContact.getContactId()).withFirstName("Akakiy")
@@ -34,10 +32,8 @@ public class ContactModificationTest extends TestBase {
             .withEmail2("pyj1j5ghka@fakemailgenerator.net").withEmail3("5sqshcudrff@iffymedia.com")
             .withAddress1("Kirovograd, Fortechniy Prov., bld. 21А, appt. 90");
 
-    app.contacts().modifyContact(contact);
+    app.contacts().modify(contact);
     Contacts after = app.contacts().setContacts();
-    System.out.println("before: " + before);
-    System.out.println("after: " + after);
 
     //Assert ниже возвращает ЛОЖЬ, т.к. на этапе сохранения изменений, контакт удаляется.
     // Баг программы (не теста). Такое же поведение и при ручном тестировании

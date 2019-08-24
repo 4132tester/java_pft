@@ -14,6 +14,8 @@ public class GroupHelper extends HelperBase {
     super(driver);
   }
 
+  private Groups groupCache = null;
+
   public void create (GroupData group) {
     initGroupCreation();
     fillGroupForm(group);
@@ -45,7 +47,7 @@ public class GroupHelper extends HelperBase {
     driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
-  public void initGropModification() {
+  public void initGroupModification() {
     click(By.name("edit"));
   }
 
@@ -61,8 +63,6 @@ public class GroupHelper extends HelperBase {
     return count() > 0;
   }
 
-  private Groups groupCache = null;
-
   public Groups setGroups() {
     if (groupCache != null) {
       return new Groups(groupCache);
@@ -72,7 +72,6 @@ public class GroupHelper extends HelperBase {
         List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
         for (WebElement element: elements) {
           String name = element.getText();
-          //System.out.println(name);
           int identifier = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
           GroupData group = new GroupData().withIdentifier(identifier).withName(name);
           groupCache.add(group);
@@ -84,7 +83,7 @@ public class GroupHelper extends HelperBase {
 
   public void modifyGroup(GroupData group) {
     selectGroupById(group.getIdentifier());
-    initGropModification();
+    initGroupModification();
     fillGroupForm(group);
     submitGroupModification();
     groupCache = null;

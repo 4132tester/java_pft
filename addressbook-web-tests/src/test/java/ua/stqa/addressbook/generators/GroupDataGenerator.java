@@ -28,7 +28,7 @@ public class GroupDataGenerator {
 
 /*
 example of the Program Arguments value in configurations
--c 3 -d csv  -f src/test/resources/groups.csv*/
+-c 4 -d csv  -f addressbook-web-tests/src/test/resources/groups.csv*/
 
   public static void main (String[] args) throws IOException {
 

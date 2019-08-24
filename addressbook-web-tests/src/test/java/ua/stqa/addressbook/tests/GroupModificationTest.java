@@ -15,11 +15,8 @@ public class GroupModificationTest extends TestBase {
   public void ensurePreconditions() {
     app.goTo().groupsPage();
     if (app.groups().setGroups().size() == 0) {
-      app.groups().initGroupCreation();
-      app.groups().fillGroupForm(new GroupData()
-              .withName("test_1 name").withHeader("test_1 header").withFooter("test_1 footer"));
-      app.groups().submitGroupCreation();
-      app.goTo().groupsPage();
+      GroupData group = new GroupData().withName("test_0").withHeader("test-header_0").withFooter("test-footer_0");
+      app.groups().create(group);
     }
   }
 

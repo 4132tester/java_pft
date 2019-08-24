@@ -13,24 +13,20 @@ public class ContactDeletionTest extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    System.out.println("The # of contacts at the beginning of BeforeMethod is: "+ app.contacts().setContacts().size());
     app.goTo().homePage();
     if (app.contacts().setContacts().size() == 0) {
-      app.contacts().initContactCreation();
-      app.contacts().fillContactForm(new ContactData()
-              .withFirstName("Ivan").withLastName("Ivanov").withHomePhone("0501112233")
+      ContactData newContact = new ContactData().withFirstName("Ivan").withLastName("Ivanov").withHomePhone("0501112233")
               .withMobilePhone("0501112234").withWorkPhone("0501112235").withEmail("1st_ivan_ivanov@te.st")
               .withEmail2("2nd_ivan_ivanov@te.st").withEmail3("3rd_ivan_ivanov@te.st")
-              .withAddress1("Lviv, vul. Naukova 3, kv. 56"));
-      app.contacts().submitContactCreation();
-      app.goTo().homePage();
+              .withAddress1("Lviv, vul. Naukova 3, kv. 56");
+      app.contacts().create(newContact);
     }
   }
 
   @Test
   public void testContactDeletion() {
+    app.goTo().homePage();
     Contacts before = app.contacts().setContacts();
-    System.out.println("The # of contacts at the beginning of Test is: "+ app.contacts().setContacts().size());
     ContactData deletedContact = before.iterator().next();
     app.contacts().delete(deletedContact);
 

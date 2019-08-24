@@ -10,6 +10,8 @@ import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
+  private Contacts contactCache = null;
+
   public ContactHelper(WebDriver driver) {
     super(driver);
   }
@@ -69,8 +71,6 @@ public class ContactHelper extends HelperBase {
     return count() > 0;
   }
 
-  private Contacts contactCache = null;
-
   public Contacts setContacts() {
     if (contactCache != null) {
       return new Contacts(contactCache);
@@ -96,7 +96,7 @@ public class ContactHelper extends HelperBase {
     }
   }
 
-  public void modifyContact(ContactData contact) {
+  public void modify(ContactData contact) {
     initContactModificationById(contact.getContactId());
     fillContactForm(contact);
     submitContactModification();
