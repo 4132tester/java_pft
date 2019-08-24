@@ -79,7 +79,7 @@ public class ContactHelper extends HelperBase {
       if (isThereAContact()) {
         List<WebElement> rows = driver.findElements(By.cssSelector("tbody > [name=\"entry\"]"));
         for (WebElement row : rows) {
-          List<WebElement> cells = driver.findElements(By.tagName("td"));
+          List<WebElement> cells = row.findElements(By.tagName("td"));
           int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
           String firstname = cells.get(2).getText();
           String lastname = cells.get(1).getText();
